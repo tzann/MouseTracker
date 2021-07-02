@@ -1,0 +1,16 @@
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\bin\Debug\MouseTracker.exe.config
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\bin\Debug\MouseTracker.exe
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\bin\Debug\MouseTracker.pdb
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\bin\Debug\SharpDX.DirectInput.dll
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\bin\Debug\SharpDX.dll
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\bin\Debug\SharpDX.pdb
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\bin\Debug\SharpDX.DirectInput.pdb
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\bin\Debug\SharpDX.DirectInput.xml
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.csprojAssemblyReference.cache
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.Properties.Resources.resources
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.csproj.GenerateResource.cache
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.csproj.CoreCompileInputs.cache
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.csproj.CopyComplete
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.exe
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.pdb
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.MouseTrackerForm.resources
