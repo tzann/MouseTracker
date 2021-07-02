@@ -14,13 +14,18 @@ namespace MouseTracker
         public int height;
         private Bitmap bmp;
         private Graphics graphics;
-        private Pen linePen;
         private Color backgroundColor = Color.FromArgb(0, 255, 0);
-        private Color lineColor = Color.White;
 
-        private int lineWidth = 10;
+        private Pen linePen;
+        private Color lineColor = Color.White;
+        private int lineWidth = 20;
+
+        private Pen outlinePen;
+        private int outlineWidth = 10;
+        private Color outlineColor = Color.FromArgb(255, 0, 0);
+
         private bool drawCursor = true;
-        private int cursorSize = 20;
+        private int cursorSize = 40;
 
         private bool drawOneCurve = false;
         private bool drawMultipleCurves = false;
@@ -43,16 +48,19 @@ namespace MouseTracker
             linePen = new Pen(lineColor, lineWidth);
             linePen.StartCap = LineCap.Round;
             linePen.EndCap = LineCap.Round;
+
+            outlinePen = new Pen(outlineColor, outlineWidth);
         }
 
         public Bitmap render(Point[] points, double sizeMultiplier)
         {
-
             int cursorSize = (int)(this.cursorSize / Math.Sqrt(sizeMultiplier));
             int lineWidth = (int)(this.lineWidth / Math.Sqrt(sizeMultiplier));
             linePen.Width = lineWidth;
 
             graphics.Clear(backgroundColor);
+
+            graphics.DrawRectangle(outlinePen, outlineWidth / 2 - 2, outlineWidth / 2 - 2, width - outlineWidth / 2 - 2, height - outlineWidth / 2 - 2);
 
             if (points.Length > 1)
             {

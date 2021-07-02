@@ -30,10 +30,10 @@ namespace MouseTracker
 
         private static int pollingRate = 1000;
         private static int refreshRate = 240;
-        private static double scale = 5;
-        private static double targetScale = 5;
+        private static double scale = 0.5;
         private static int numPoints = 50;
         private static bool useMouseDecel = false;
+        private static bool cameraTargetsCursor = true;
 
         public MouseTrackerForm()
         {
@@ -48,7 +48,7 @@ namespace MouseTracker
 
         private void SetupVariables()
         {
-            camera = new Camera(Width, Height);
+            camera = new Camera(graphicsPanel.ClientSize.Width, graphicsPanel.ClientSize.Height);
             points = new List<Point>();
             lineLength = 0;
         }
@@ -144,6 +144,7 @@ namespace MouseTracker
                     else
                     {
                         isRetractingLine = false;
+                        ResetCameraPosAndScale();
                     }
                 }
             }
@@ -151,7 +152,7 @@ namespace MouseTracker
 
         private void RefreshScreen()
         {
-            GraphicsPanel.Invalidate();
+            graphicsPanel.Invalidate();
         }
 
         private void AddPoint(Point p)
@@ -180,18 +181,65 @@ namespace MouseTracker
             points.RemoveAt(0);
         }
 
-        private void AdjustCameraPosAndScale()
+        private double GetFurthestDistanceFromCursor()
         {
-            if (lineLength > 125)
+            double max = 0;
+            for (int i = 0; i < points.Count; i++)
             {
-                targetScale = roundToPow2(2d * lineLength / Width);
-            } else
+                max = Math.Max(max, Distance(pos, points[i]));
+            }
+            return max;
+        }
+
+        private Point GetCenterOfLine()
+        {
+            int minX = pos.X;
+            int minY = pos.Y;
+            int maxX = pos.X;
+            int maxY = pos.Y;
+
+            for (int i = 0; i < points.Count; i++)
             {
-                targetScale = 0.5;
+                minX = Math.Min(points[i].X, minX);
+                minY = Math.Min(points[i].Y, minY);
+                maxX = Math.Max(points[i].X, maxX);
+                maxY = Math.Max(points[i].Y, maxY);
             }
 
-            cameraX = (29 * cameraX + pos.X) / 30;
-            cameraY = (29 * cameraY + pos.Y) / 30;
+            return new Point((minX + maxX) / 2, (minY + maxY) / 2);
+        }
+
+        private double GetTargetScale()
+        {
+            return Math.Max(0.5, 2d * GetFurthestDistanceFromCursor() / graphicsPanel.ClientSize.Width);
+        }
+
+        private Point GetTargetPos()
+        {
+            if (!cameraTargetsCursor)
+            {
+                return GetCenterOfLine();
+            }
+            return pos;
+        }
+
+        private void ResetCameraPosAndScale()
+        {
+            double targetScale = GetTargetScale();
+            Point targetPos = GetTargetPos();
+
+            cameraX = targetPos.X;
+            cameraY = targetPos.Y;
+            scale = targetScale;
+        }
+
+        private void AdjustCameraPosAndScale()
+        {
+            double targetScale = GetTargetScale();
+            Point targetPos = GetTargetPos();
+
+            cameraX = (29 * cameraX + targetPos.X) / 30;
+            cameraY = (29 * cameraY + targetPos.Y) / 30;
             if (!isRetractingLine)
             {
                 scale = (19 * scale + targetScale) / 20;
@@ -223,7 +271,7 @@ namespace MouseTracker
 
             Bitmap bmp = camera.render(graphicalPoints, scale);
 
-            e.Graphics.DrawImage(bmp, 0, 0, Width, Height);
+            e.Graphics.DrawImage(bmp, 0, 0, graphicsPanel.ClientSize.Width, graphicsPanel.ClientSize.Height);
         }
 
         private Point[] ToCameraCoordinates(Point[] ps)

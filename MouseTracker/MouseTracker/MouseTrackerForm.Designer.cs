@@ -29,36 +29,38 @@ namespace MouseTracker
         /// </summary>
         private void InitializeComponent()
         {
-            this.GraphicsPanel = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.GraphicsPanel)).BeginInit();
+            this.graphicsPanel = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.graphicsPanel)).BeginInit();
             this.SuspendLayout();
             // 
-            // GraphicsPanel
+            // graphicsPanel
             // 
-            this.GraphicsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GraphicsPanel.Location = new System.Drawing.Point(0, 0);
-            this.GraphicsPanel.Name = "GraphicsPanel";
-            this.GraphicsPanel.Size = new System.Drawing.Size(984, 961);
-            this.GraphicsPanel.TabIndex = 0;
-            this.GraphicsPanel.TabStop = false;
-            this.GraphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.GraphicsPanel_Paint);
+            this.graphicsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
+            this.graphicsPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.graphicsPanel.Name = "graphicsPanel";
+            this.graphicsPanel.Size = new System.Drawing.Size(984, 961);
+            this.graphicsPanel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.graphicsPanel.TabIndex = 0;
+            this.graphicsPanel.TabStop = false;
+            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.GraphicsPanel_Paint);
             // 
             // MouseTrackerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 961);
-            this.Controls.Add(this.GraphicsPanel);
+            this.Controls.Add(this.graphicsPanel);
             this.Name = "MouseTrackerForm";
             this.Text = "Mouse Tracker";
-            ((System.ComponentModel.ISupportInitialize)(this.GraphicsPanel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.graphicsPanel)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox GraphicsPanel;
+        private System.Windows.Forms.PictureBox graphicsPanel;
     }
 }
 
