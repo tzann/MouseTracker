@@ -18,14 +18,14 @@ namespace MouseTracker
 
         private Pen linePen;
         private Color lineColor = Color.White;
-        private int lineWidth = 20;
+        private int lineWidth = 15;
 
         private Pen outlinePen;
         private int outlineWidth = 10;
         private Color outlineColor = Color.FromArgb(255, 0, 0);
 
         private bool drawCursor = true;
-        private int cursorSize = 40;
+        private int cursorSize = 30;
 
         private bool drawOneCurve = false;
         private bool drawMultipleCurves = false;

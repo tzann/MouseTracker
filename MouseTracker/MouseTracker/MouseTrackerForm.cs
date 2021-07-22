@@ -191,6 +191,16 @@ namespace MouseTracker
             return max;
         }
 
+        private double GetFurthestDistanceFromCamera()
+        {
+            double max = 0;
+            for (int i = 0; i < points.Count; i++)
+            {
+                max = Math.Max(max, Distance(new Point(cameraX, cameraY), points[i]));
+            }
+            return max;
+        }
+
         private Point GetCenterOfLine()
         {
             int minX = pos.X;
