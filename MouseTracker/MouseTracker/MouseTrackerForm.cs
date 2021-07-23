@@ -360,6 +360,7 @@ namespace MouseTracker
         public void setMaxLineLength(int length)
         {
             maxLineLength = length;
+            maxNumPoints = maxLineLength * 60 / 1000;
         }
 
         public void setMinScale(double scale)

@@ -30,6 +30,8 @@ namespace MouseTracker
         private void InitializeComponent()
         {
             this.graphicsGroupBox = new System.Windows.Forms.GroupBox();
+            this.lineWidth = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
             this.cursorOptionBox = new System.Windows.Forms.GroupBox();
             this.cursorSize = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
@@ -39,7 +41,9 @@ namespace MouseTracker
             this.label8 = new System.Windows.Forms.Label();
             this.cursorCheckBox = new System.Windows.Forms.CheckBox();
             this.outlineOptionBox = new System.Windows.Forms.GroupBox();
+            this.outlineWidth = new System.Windows.Forms.NumericUpDown();
             this.outlineColorBlue = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.outlineColorGreen = new System.Windows.Forms.NumericUpDown();
             this.outlineColorRed = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
@@ -68,31 +72,29 @@ namespace MouseTracker
             this.backgroundColorGreen = new System.Windows.Forms.NumericUpDown();
             this.backgroundColorRed = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.outlineWidth = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.maxFpsLabel = new System.Windows.Forms.Label();
-            this.uncappedFpsCheckBox = new System.Windows.Forms.CheckBox();
-            this.maxFps = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.maxLineLength = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.maxZoomLevel = new System.Windows.Forms.NumericUpDown();
             this.cameraOptionBox = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.followTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.cameraFollowSpeed = new System.Windows.Forms.NumericUpDown();
             this.cameraZoomSpeed = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lineWidth = new System.Windows.Forms.NumericUpDown();
+            this.cameraFollowSpeed = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.followTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.maxZoomLevel = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.maxLineLength = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.maxFps = new System.Windows.Forms.NumericUpDown();
+            this.uncappedFpsCheckBox = new System.Windows.Forms.CheckBox();
+            this.maxFpsLabel = new System.Windows.Forms.Label();
             this.graphicsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lineWidth)).BeginInit();
             this.cursorOptionBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cursorSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cursorColorBlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cursorColorGreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cursorColorRed)).BeginInit();
             this.outlineOptionBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.outlineWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outlineColorBlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outlineColorGreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outlineColorRed)).BeginInit();
@@ -111,15 +113,13 @@ namespace MouseTracker
             ((System.ComponentModel.ISupportInitialize)(this.backgroundColorBlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundColorGreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundColorRed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.outlineWidth)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.maxFps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxLineLength)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxZoomLevel)).BeginInit();
             this.cameraOptionBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cameraFollowSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cameraZoomSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lineWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraFollowSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxZoomLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxLineLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxFps)).BeginInit();
             this.SuspendLayout();
             // 
             // graphicsGroupBox
@@ -150,6 +150,28 @@ namespace MouseTracker
             this.graphicsGroupBox.TabIndex = 0;
             this.graphicsGroupBox.TabStop = false;
             this.graphicsGroupBox.Text = "Appearance";
+            // 
+            // lineWidth
+            // 
+            this.lineWidth.Location = new System.Drawing.Point(10, 118);
+            this.lineWidth.Name = "lineWidth";
+            this.lineWidth.Size = new System.Drawing.Size(41, 20);
+            this.lineWidth.TabIndex = 19;
+            this.lineWidth.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.lineWidth.ValueChanged += new System.EventHandler(this.lineWidth_ValueChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 102);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(55, 13);
+            this.label15.TabIndex = 17;
+            this.label15.Text = "Line width";
             // 
             // cursorOptionBox
             // 
@@ -272,6 +294,19 @@ namespace MouseTracker
             this.outlineOptionBox.TabStop = false;
             this.outlineOptionBox.Text = "Outline options";
             // 
+            // outlineWidth
+            // 
+            this.outlineWidth.Location = new System.Drawing.Point(9, 71);
+            this.outlineWidth.Name = "outlineWidth";
+            this.outlineWidth.Size = new System.Drawing.Size(41, 20);
+            this.outlineWidth.TabIndex = 20;
+            this.outlineWidth.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.outlineWidth.ValueChanged += new System.EventHandler(this.outlineWidth_ValueChanged);
+            // 
             // outlineColorBlue
             // 
             this.outlineColorBlue.Location = new System.Drawing.Point(103, 32);
@@ -284,6 +319,15 @@ namespace MouseTracker
             this.outlineColorBlue.Size = new System.Drawing.Size(41, 20);
             this.outlineColorBlue.TabIndex = 15;
             this.outlineColorBlue.ValueChanged += new System.EventHandler(this.outlineColor_Changed);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 55);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(68, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Outline width";
             // 
             // outlineColorGreen
             // 
@@ -686,28 +730,6 @@ namespace MouseTracker
             this.label1.TabIndex = 0;
             this.label1.Text = "Background color";
             // 
-            // outlineWidth
-            // 
-            this.outlineWidth.Location = new System.Drawing.Point(9, 71);
-            this.outlineWidth.Name = "outlineWidth";
-            this.outlineWidth.Size = new System.Drawing.Size(41, 20);
-            this.outlineWidth.TabIndex = 20;
-            this.outlineWidth.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.outlineWidth.ValueChanged += new System.EventHandler(this.outlineWidth_ValueChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 55);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(68, 13);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Outline width";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.cameraOptionBox);
@@ -725,88 +747,82 @@ namespace MouseTracker
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
             // 
-            // maxFpsLabel
+            // cameraOptionBox
             // 
-            this.maxFpsLabel.AutoSize = true;
-            this.maxFpsLabel.Enabled = false;
-            this.maxFpsLabel.Location = new System.Drawing.Point(7, 40);
-            this.maxFpsLabel.Name = "maxFpsLabel";
-            this.maxFpsLabel.Size = new System.Drawing.Size(50, 13);
-            this.maxFpsLabel.TabIndex = 0;
-            this.maxFpsLabel.Text = "Max FPS";
+            this.cameraOptionBox.Controls.Add(this.cameraZoomSpeed);
+            this.cameraOptionBox.Controls.Add(this.cameraFollowSpeed);
+            this.cameraOptionBox.Controls.Add(this.label14);
+            this.cameraOptionBox.Controls.Add(this.followTypeComboBox);
+            this.cameraOptionBox.Controls.Add(this.label13);
+            this.cameraOptionBox.Location = new System.Drawing.Point(165, 20);
+            this.cameraOptionBox.Name = "cameraOptionBox";
+            this.cameraOptionBox.Size = new System.Drawing.Size(159, 136);
+            this.cameraOptionBox.TabIndex = 8;
+            this.cameraOptionBox.TabStop = false;
+            this.cameraOptionBox.Text = "Camera options";
             // 
-            // uncappedFpsCheckBox
+            // cameraZoomSpeed
             // 
-            this.uncappedFpsCheckBox.AutoSize = true;
-            this.uncappedFpsCheckBox.Checked = true;
-            this.uncappedFpsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.uncappedFpsCheckBox.Location = new System.Drawing.Point(10, 20);
-            this.uncappedFpsCheckBox.Name = "uncappedFpsCheckBox";
-            this.uncappedFpsCheckBox.Size = new System.Drawing.Size(99, 17);
-            this.uncappedFpsCheckBox.TabIndex = 2;
-            this.uncappedFpsCheckBox.Text = "Uncapped FPS";
-            this.uncappedFpsCheckBox.UseVisualStyleBackColor = true;
-            this.uncappedFpsCheckBox.CheckedChanged += new System.EventHandler(this.uncappedFpsCheckBox_CheckedChanged);
-            // 
-            // maxFps
-            // 
-            this.maxFps.Enabled = false;
-            this.maxFps.Location = new System.Drawing.Point(10, 57);
-            this.maxFps.Maximum = new decimal(new int[] {
-            60,
+            this.cameraZoomSpeed.Location = new System.Drawing.Point(103, 76);
+            this.cameraZoomSpeed.Minimum = new decimal(new int[] {
+            2,
             0,
             0,
             0});
-            this.maxFps.Minimum = new decimal(new int[] {
-            1,
+            this.cameraZoomSpeed.Name = "cameraZoomSpeed";
+            this.cameraZoomSpeed.Size = new System.Drawing.Size(41, 20);
+            this.cameraZoomSpeed.TabIndex = 5;
+            this.cameraZoomSpeed.Value = new decimal(new int[] {
+            30,
             0,
             0,
             0});
-            this.maxFps.Name = "maxFps";
-            this.maxFps.Size = new System.Drawing.Size(41, 20);
-            this.maxFps.TabIndex = 3;
-            this.maxFps.Value = new decimal(new int[] {
-            60,
+            this.cameraZoomSpeed.ValueChanged += new System.EventHandler(this.cameraZoomSpeed_ValueChanged);
+            // 
+            // cameraFollowSpeed
+            // 
+            this.cameraFollowSpeed.Location = new System.Drawing.Point(9, 76);
+            this.cameraFollowSpeed.Minimum = new decimal(new int[] {
+            2,
             0,
             0,
             0});
-            this.maxFps.ValueChanged += new System.EventHandler(this.maxFps_ValueChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 80);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(86, 13);
-            this.label11.TabIndex = 4;
-            this.label11.Text = "Max Line Length";
-            // 
-            // maxLineLength
-            // 
-            this.maxLineLength.Location = new System.Drawing.Point(10, 96);
-            this.maxLineLength.Maximum = new decimal(new int[] {
-            10000,
+            this.cameraFollowSpeed.Name = "cameraFollowSpeed";
+            this.cameraFollowSpeed.Size = new System.Drawing.Size(41, 20);
+            this.cameraFollowSpeed.TabIndex = 3;
+            this.cameraFollowSpeed.Value = new decimal(new int[] {
+            30,
             0,
             0,
             0});
-            this.maxLineLength.Name = "maxLineLength";
-            this.maxLineLength.Size = new System.Drawing.Size(47, 20);
-            this.maxLineLength.TabIndex = 5;
-            this.maxLineLength.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.maxLineLength.ValueChanged += new System.EventHandler(this.maxLineLength_ValueChanged);
+            this.cameraFollowSpeed.ValueChanged += new System.EventHandler(this.cameraFollowSpeed_ValueChanged);
             // 
-            // label12
+            // label14
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(7, 119);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(86, 13);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "Max Zoom Level";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 60);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(139, 13);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "Follow speed / Zoom speed";
+            // 
+            // followTypeComboBox
+            // 
+            this.followTypeComboBox.FormattingEnabled = true;
+            this.followTypeComboBox.Location = new System.Drawing.Point(9, 36);
+            this.followTypeComboBox.Name = "followTypeComboBox";
+            this.followTypeComboBox.Size = new System.Drawing.Size(135, 21);
+            this.followTypeComboBox.TabIndex = 1;
+            this.followTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.followTypeComboBox_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 20);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(67, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Follow target";
             // 
             // maxZoomLevel
             // 
@@ -837,104 +853,93 @@ namespace MouseTracker
             0});
             this.maxZoomLevel.ValueChanged += new System.EventHandler(this.maxZoomLevel_ValueChanged);
             // 
-            // cameraOptionBox
+            // label12
             // 
-            this.cameraOptionBox.Controls.Add(this.cameraZoomSpeed);
-            this.cameraOptionBox.Controls.Add(this.cameraFollowSpeed);
-            this.cameraOptionBox.Controls.Add(this.label14);
-            this.cameraOptionBox.Controls.Add(this.followTypeComboBox);
-            this.cameraOptionBox.Controls.Add(this.label13);
-            this.cameraOptionBox.Location = new System.Drawing.Point(165, 20);
-            this.cameraOptionBox.Name = "cameraOptionBox";
-            this.cameraOptionBox.Size = new System.Drawing.Size(159, 136);
-            this.cameraOptionBox.TabIndex = 8;
-            this.cameraOptionBox.TabStop = false;
-            this.cameraOptionBox.Text = "Camera options";
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 119);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(86, 13);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "Max Zoom Level";
             // 
-            // label13
+            // maxLineLength
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 20);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(67, 13);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Follow target";
-            // 
-            // followTypeComboBox
-            // 
-            this.followTypeComboBox.FormattingEnabled = true;
-            this.followTypeComboBox.Location = new System.Drawing.Point(9, 36);
-            this.followTypeComboBox.Name = "followTypeComboBox";
-            this.followTypeComboBox.Size = new System.Drawing.Size(135, 21);
-            this.followTypeComboBox.TabIndex = 1;
-            this.followTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.followTypeComboBox_SelectedIndexChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 60);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(139, 13);
-            this.label14.TabIndex = 2;
-            this.label14.Text = "Follow speed / Zoom speed";
-            // 
-            // cameraFollowSpeed
-            // 
-            this.cameraFollowSpeed.Location = new System.Drawing.Point(9, 76);
-            this.cameraFollowSpeed.Minimum = new decimal(new int[] {
-            2,
+            this.maxLineLength.Location = new System.Drawing.Point(10, 96);
+            this.maxLineLength.Maximum = new decimal(new int[] {
+            10000,
             0,
             0,
             0});
-            this.cameraFollowSpeed.Name = "cameraFollowSpeed";
-            this.cameraFollowSpeed.Size = new System.Drawing.Size(41, 20);
-            this.cameraFollowSpeed.TabIndex = 3;
-            this.cameraFollowSpeed.Value = new decimal(new int[] {
-            30,
+            this.maxLineLength.Minimum = new decimal(new int[] {
+            100,
             0,
             0,
             0});
-            this.cameraFollowSpeed.ValueChanged += new System.EventHandler(this.cameraFollowSpeed_ValueChanged);
-            // 
-            // cameraZoomSpeed
-            // 
-            this.cameraZoomSpeed.Location = new System.Drawing.Point(103, 76);
-            this.cameraZoomSpeed.Minimum = new decimal(new int[] {
-            2,
+            this.maxLineLength.Name = "maxLineLength";
+            this.maxLineLength.Size = new System.Drawing.Size(47, 20);
+            this.maxLineLength.TabIndex = 5;
+            this.maxLineLength.Value = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
-            this.cameraZoomSpeed.Name = "cameraZoomSpeed";
-            this.cameraZoomSpeed.Size = new System.Drawing.Size(41, 20);
-            this.cameraZoomSpeed.TabIndex = 5;
-            this.cameraZoomSpeed.Value = new decimal(new int[] {
-            30,
+            this.maxLineLength.ValueChanged += new System.EventHandler(this.maxLineLength_ValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(7, 80);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(86, 13);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "Max Line Length";
+            // 
+            // maxFps
+            // 
+            this.maxFps.Enabled = false;
+            this.maxFps.Location = new System.Drawing.Point(10, 57);
+            this.maxFps.Maximum = new decimal(new int[] {
+            60,
             0,
             0,
             0});
-            this.cameraZoomSpeed.ValueChanged += new System.EventHandler(this.cameraZoomSpeed_ValueChanged);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 102);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(55, 13);
-            this.label15.TabIndex = 17;
-            this.label15.Text = "Line width";
-            // 
-            // lineWidth
-            // 
-            this.lineWidth.Location = new System.Drawing.Point(10, 118);
-            this.lineWidth.Name = "lineWidth";
-            this.lineWidth.Size = new System.Drawing.Size(41, 20);
-            this.lineWidth.TabIndex = 19;
-            this.lineWidth.Value = new decimal(new int[] {
-            15,
+            this.maxFps.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.lineWidth.ValueChanged += new System.EventHandler(this.lineWidth_ValueChanged);
+            this.maxFps.Name = "maxFps";
+            this.maxFps.Size = new System.Drawing.Size(41, 20);
+            this.maxFps.TabIndex = 3;
+            this.maxFps.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.maxFps.ValueChanged += new System.EventHandler(this.maxFps_ValueChanged);
+            // 
+            // uncappedFpsCheckBox
+            // 
+            this.uncappedFpsCheckBox.AutoSize = true;
+            this.uncappedFpsCheckBox.Checked = true;
+            this.uncappedFpsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.uncappedFpsCheckBox.Location = new System.Drawing.Point(10, 20);
+            this.uncappedFpsCheckBox.Name = "uncappedFpsCheckBox";
+            this.uncappedFpsCheckBox.Size = new System.Drawing.Size(99, 17);
+            this.uncappedFpsCheckBox.TabIndex = 2;
+            this.uncappedFpsCheckBox.Text = "Uncapped FPS";
+            this.uncappedFpsCheckBox.UseVisualStyleBackColor = true;
+            this.uncappedFpsCheckBox.CheckedChanged += new System.EventHandler(this.uncappedFpsCheckBox_CheckedChanged);
+            // 
+            // maxFpsLabel
+            // 
+            this.maxFpsLabel.AutoSize = true;
+            this.maxFpsLabel.Enabled = false;
+            this.maxFpsLabel.Location = new System.Drawing.Point(7, 40);
+            this.maxFpsLabel.Name = "maxFpsLabel";
+            this.maxFpsLabel.Size = new System.Drawing.Size(50, 13);
+            this.maxFpsLabel.TabIndex = 0;
+            this.maxFpsLabel.Text = "Max FPS";
             // 
             // OptionForm
             // 
@@ -947,6 +952,7 @@ namespace MouseTracker
             this.Text = "MouseTracker Options";
             this.graphicsGroupBox.ResumeLayout(false);
             this.graphicsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lineWidth)).EndInit();
             this.cursorOptionBox.ResumeLayout(false);
             this.cursorOptionBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cursorSize)).EndInit();
@@ -955,6 +961,7 @@ namespace MouseTracker
             ((System.ComponentModel.ISupportInitialize)(this.cursorColorRed)).EndInit();
             this.outlineOptionBox.ResumeLayout(false);
             this.outlineOptionBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.outlineWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outlineColorBlue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outlineColorGreen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outlineColorRed)).EndInit();
@@ -974,17 +981,15 @@ namespace MouseTracker
             ((System.ComponentModel.ISupportInitialize)(this.backgroundColorBlue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundColorGreen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundColorRed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.outlineWidth)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.maxFps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxLineLength)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxZoomLevel)).EndInit();
             this.cameraOptionBox.ResumeLayout(false);
             this.cameraOptionBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cameraFollowSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cameraZoomSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lineWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraFollowSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxZoomLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxLineLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxFps)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
