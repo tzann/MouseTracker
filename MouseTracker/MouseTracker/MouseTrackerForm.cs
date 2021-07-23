@@ -24,15 +24,26 @@ namespace MouseTracker
         private int cameraX = 0;
         private int cameraY = 0;
 
-        private bool resetPoints = false;
         private bool isRetractingLine = false;
         private int pollsSinceLastMovement = 0;
 
+        // how many times the mouse input is read per second
+        // shouldn't really impact performance too much (I hope)
         private static int pollingRate = 1000;
+
+        // how many frames are drawn per second
+        // for performance reasons, this should probably not be higher than whatever framerate you plan to record at
         private static int refreshRate = 240;
+
         private static double scale = 0.5;
+
+        // how many points are in the line before it starts removing them
         private static int numPoints = 50;
+        
+        // mouse deceleration for testing purposes
         private static bool useMouseDecel = false;
+
+        // choose whether the camera follows the "center of mass" of the line, or the cursor
         private static bool cameraTargetsCursor = true;
 
         public MouseTrackerForm()
@@ -104,25 +115,7 @@ namespace MouseTracker
                 
                 int dx = currentState.X;
                 int dy = currentState.Y;
-                if (useMouseDecel)
-                {
-                    if (currentState.X < 0)
-                    {
-                        dx = (int) -Math.Sqrt(-dx);
-                    }
-                    else
-                    {
-                        dx = (int) Math.Sqrt(dx);
-                    }
-                    if (currentState.Y < 0)
-                    {
-                        dy = (int) -Math.Sqrt(-dy);
-                    }
-                    else
-                    {
-                        dy = (int) Math.Sqrt(dy);
-                    }
-                }
+                // TODO: mouse accel and decel here
 
                 pos = new Point(pos.X + dx, pos.Y + dy);
 
@@ -130,6 +123,7 @@ namespace MouseTracker
             }
             else
             {
+                // Mouse didn't move
                 pollsSinceLastMovement++;
                 if (pollsSinceLastMovement + points.Count > numPoints)
                 {
@@ -143,6 +137,7 @@ namespace MouseTracker
                     }
                     else
                     {
+                        // Line has fully retracted
                         isRetractingLine = false;
                         ResetCameraPosAndScale();
                     }
@@ -221,6 +216,10 @@ namespace MouseTracker
 
         private double GetTargetScale()
         {
+            if (!cameraTargetsCursor)
+            {
+                return Math.Max(0.5, 2d * GetFurthestDistanceFromCamera() / graphicsPanel.ClientSize.Width);
+            }
             return Math.Max(0.5, 2d * GetFurthestDistanceFromCursor() / graphicsPanel.ClientSize.Width);
         }
 
@@ -256,6 +255,7 @@ namespace MouseTracker
             }
         }
 
+        // Function to help fix dynamic zoom thresholds, not currently being used
         private double roundToPow2(double val)
         {
             double low = 0.5;
@@ -279,7 +279,8 @@ namespace MouseTracker
             AdjustCameraPosAndScale();
             Point[] graphicalPoints = ToCameraCoordinates(points.ToArray());
 
-            Bitmap bmp = camera.render(graphicalPoints, scale);
+            Point origin = ToCameraCoordinates(new Point(0, 0));
+            Bitmap bmp = camera.render(graphicalPoints, scale, origin.X, origin.Y);
 
             e.Graphics.DrawImage(bmp, 0, 0, graphicsPanel.ClientSize.Width, graphicsPanel.ClientSize.Height);
         }
