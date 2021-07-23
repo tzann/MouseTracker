@@ -15,7 +15,7 @@ namespace MouseTracker
         public int height;
         private Bitmap bmp;
         private Graphics graphics;
-        private Color backgroundColor = Color.FromArgb(0, 0, 0);
+        private Color backgroundColor = Color.FromArgb(0, 255, 0);
 
         // Pen used to draw grid lines
         private Pen gridPen;
@@ -35,11 +35,15 @@ namespace MouseTracker
         private int outlineWidth = 10;
         private Color outlineColor = Color.FromArgb(255, 0, 0);
 
-        // Speed color interpolation
+        // Cursor stuff
+        private bool drawCursor = true;
+        private int cursorSize = 30;
+        private Color cursorColor = Color.FromArgb(255, 0, 0);
+
+        // Speed color interpolation test
         private bool speedColorInterpolation = false;
         private Color slowColor = Color.Blue;
         private Color fastColor = Color.Red;
-
         // Speeds below minSpeed will be slowColor
         // Speeds above maxSpeed will be fastColor
         // Everything in between will be interpolated linearly
@@ -48,10 +52,10 @@ namespace MouseTracker
         private int minSpeed = 0;
         private int maxSpeed = 200;
 
-        // Drawing options
-        private bool drawCursor = true;
-        private int cursorSize = 30;
 
+        // More Drawing options
+        
+        // Grid stuff
         private bool drawGridLines = false;
         // Distance between grid lines in pixels (at smallest scale)
         private int gridSize = 100;
@@ -61,9 +65,9 @@ namespace MouseTracker
         // If the grid squares become smaller than this value, the grid will increase in size (by gridFactor)
         private int minGridSize = 150;
 
-        // Draw one single curve through all points
+        // Draw one single curve through all points (causes visual artifacts)
         private bool drawOneCurve = false;
-        // Draw a curve through each triplet of points
+        // Draw a curve through each triplet of points (causes visual artifacts)
         private bool drawMultipleCurves = false;
         // Draw a straight line between each pair of consecutive points
         private bool drawLines = true;
