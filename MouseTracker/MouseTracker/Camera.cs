@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace MouseTracker
 {
-    class Camera
+    public class Camera
     {
         public int width;
         public int height;
+
         private Bitmap bmp;
         private Graphics graphics;
+        private bool isResizing;
+
         private Color backgroundColor = Color.FromArgb(0, 255, 0);
 
         // Pen used to draw grid lines
@@ -31,12 +34,14 @@ namespace MouseTracker
         private int lineWidth = 15;
 
         // Pen used to draw outline
+        private bool drawOutline = false;
         private Pen outlinePen;
         private int outlineWidth = 10;
         private Color outlineColor = Color.FromArgb(255, 0, 0);
 
         // Cursor stuff
         private bool drawCursor = true;
+        private Brush cursorBrush;
         private int cursorSize = 30;
         private Color cursorColor = Color.FromArgb(255, 0, 0);
 
@@ -52,7 +57,6 @@ namespace MouseTracker
         private int minSpeed = 0;
         private int maxSpeed = 200;
 
-
         // More Drawing options
         
         // Grid stuff
@@ -63,26 +67,42 @@ namespace MouseTracker
         // Also, every nth grid line will be drawn thicker (n = gridFactor)
         private int gridFactor = 3;
         // If the grid squares become smaller than this value, the grid will increase in size (by gridFactor)
-        private int minGridSize = 150;
+        private int minGridSize = 100;
 
-        // Draw one single curve through all points (causes visual artifacts)
-        private bool drawOneCurve = false;
-        // Draw a curve through each triplet of points (causes visual artifacts)
-        private bool drawMultipleCurves = false;
-        // Draw a straight line between each pair of consecutive points
-        private bool drawLines = true;
+        // Choose how the line is drawn
+        private LineType lineType = LineType.Simple;
+        public enum LineType
+        {
+            // Draw a straight line between each pair of consecutive points
+            Simple,
+            // Draw one single curve through all points (causes visual artifacts)
+            Smooth,
+            // Draw a curve through each triplet of points (causes visual artifacts)
+            Smooth2
+        }
 
         // Draw black rectangles on the actual point positions
         private bool drawIndividualPoints = false;
 
         public Camera(int width, int height)
         {
+            isResizing = false;
             this.width = width;
             this.height = height;
-            SetupBitmapGraphics();
+            SetupGraphics();
         }
 
-        private void SetupBitmapGraphics()
+        private void resize(int width, int height)
+        {
+            isResizing = true;
+            DisposeGraphics();
+            this.width = width;
+            this.height = height;
+            SetupGraphics();
+            isResizing = false;
+        }
+
+        private void SetupGraphics()
         {
             bmp = new Bitmap(width, height);
             graphics = Graphics.FromImage(bmp);
@@ -90,6 +110,13 @@ namespace MouseTracker
             graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             SetupPens();
+        }
+
+        private void DisposeGraphics()
+        {
+            DisposePens();
+            graphics.Dispose();
+            bmp.Dispose();
         }
 
         private void SetupPens()
@@ -102,10 +129,26 @@ namespace MouseTracker
             linePen.EndCap = LineCap.Round;
 
             outlinePen = new Pen(outlineColor, outlineWidth);
+
+            cursorBrush = new SolidBrush(cursorColor);
+        }
+
+        private void DisposePens()
+        {
+            gridPen.Dispose();
+            thickGridPen.Dispose();
+            linePen.Dispose();
+            outlinePen.Dispose();
+            cursorBrush.Dispose();
         }
 
         public Bitmap render(Point[] points, double sizeMultiplier, int originX, int originY)
         {
+            if (isResizing)
+            {
+                return new Bitmap(0, 0);
+            }
+
             double gridSize = this.gridSize / sizeMultiplier;
 
             int cursorSize = (int)(this.cursorSize / Math.Sqrt(sizeMultiplier));
@@ -114,9 +157,6 @@ namespace MouseTracker
 
             // Clear canvas, draw background
             graphics.Clear(backgroundColor);
-
-            // Draw outline
-            graphics.DrawRectangle(outlinePen, outlineWidth / 2 - 2, outlineWidth / 2 - 2, width - outlineWidth / 2 - 2, height - outlineWidth / 2 - 2);
 
             // Draw grid lines
             if (drawGridLines)
@@ -142,6 +182,12 @@ namespace MouseTracker
                 renderCursor(graphics, points[points.Length - 1], cursorSize);
             }
 
+            // Draw outline over everything else
+            if (drawOutline)
+            {
+                graphics.DrawRectangle(outlinePen, 0, 0, width - 1, height - 1);
+            }
+
             return bmp;
         }
 
@@ -155,12 +201,12 @@ namespace MouseTracker
          */
         private void renderLine(Graphics graphics, Point[] points, Pen linePen, double sizeMultiplier)
         {
-            if (drawOneCurve)
+            if (lineType == LineType.Smooth)
             {
                 // This has visual artifacts when points get too close together...
                 graphics.DrawCurve(linePen, points);
             }
-            else if (drawMultipleCurves)
+            else if (lineType == LineType.Smooth2)
             {
                 // This has visual artifacts when points get too close together...
                 Point prevprev = points[0];
@@ -174,7 +220,7 @@ namespace MouseTracker
                     prev = curr;
                 }
             }
-            else if (drawLines)
+            else if (lineType == LineType.Simple)
             {
                 renderSegmentedLine(graphics, points, linePen, sizeMultiplier);
             }
@@ -271,7 +317,8 @@ namespace MouseTracker
         {
             foreach (Point p in points)
             {
-                Rectangle rect = new Rectangle(p, new Size(5, 5));
+                Point adjusted = new Point(p.X - 2, p.Y - 2);
+                Rectangle rect = new Rectangle(adjusted, new Size(5, 5));
                 graphics.FillRectangle(Brushes.Black, rect);
             }
         }
@@ -280,7 +327,141 @@ namespace MouseTracker
         {
             Point adjusted = new Point(cursor.X - cursorSize / 2, cursor.Y - cursorSize / 2);
             Rectangle rect = new Rectangle(adjusted, new Size(cursorSize, cursorSize));
-            graphics.FillEllipse(Brushes.Red, rect);
+            graphics.FillEllipse(cursorBrush, rect);
+        }
+
+        // -------------------
+        // Setters for options
+        // -------------------
+
+        public void setSize(int width, int height)
+        {
+            resize(width, height);
+        }
+
+        public void setBackgroundColor(Color color)
+        {
+            backgroundColor = color;
+        }
+
+        public void setLineColor(Color color)
+        {
+            lineColor = color;
+            linePen.Color = lineColor;
+        }
+
+        public void setLineWidth(int width)
+        {
+            lineWidth = width;
+            linePen.Width = lineWidth;
+        }
+
+        public void setLineType(LineType type)
+        {
+            lineType = type;
+        }
+
+        public void setGridEnabled(bool enabled)
+        {
+            drawGridLines = enabled;
+        }
+
+        public void setGridColor(Color color)
+        {
+            gridColor = color;
+            gridPen.Color = gridColor;
+            thickGridPen.Color = gridColor;
+        }
+
+        public void setGridLineWidth(int width)
+        {
+            gridWidth = width;
+            gridPen.Width = width;
+        }
+
+        public void setGridThickLineWidth(int width)
+        {
+            thickGridWidth = width;
+            thickGridPen.Width = thickGridWidth;
+        }
+
+        public void setGridFactor(int factor)
+        {
+            gridFactor = factor;
+        }
+
+        public void setGridSize(int size)
+        {
+            gridSize = size;
+        }
+
+        public void setMinGridSize(int size)
+        {
+            minGridSize = size;
+        }
+
+        public void setCursorEnabled(bool enabled)
+        {
+            drawCursor = enabled;
+        }
+
+        public void setCursorColor(Color color)
+        {
+            cursorColor = color;
+            cursorBrush.Dispose();
+            cursorBrush = new SolidBrush(cursorColor);
+        }
+
+        public void setCursorSize(int size)
+        {
+            cursorSize = size;
+        }
+
+        public void setOutlineEnabled(bool enabled)
+        {
+            drawOutline = enabled;
+        }
+
+        public void setOutlineColor(Color color)
+        {
+            outlineColor = color;
+            outlinePen.Color = outlineColor;
+        }
+
+        public void setOutlineWidth(int width)
+        {
+            outlineWidth = width * 2;
+            outlinePen.Width = outlineWidth;
+        }
+
+        public void setPointsEnabled(bool enabled)
+        {
+            drawIndividualPoints = enabled;
+        }
+
+        public void setSpeedColorInterpolationEnabled(bool enabled)
+        {
+            speedColorInterpolation = enabled;
+        }
+
+        public void setSlowColor(Color color)
+        {
+            slowColor = color;
+        }
+
+        public void setFastColor(Color color)
+        {
+            fastColor = color;
+        }
+
+        public void setMinSpeed(int speed)
+        {
+            minSpeed = speed;
+        }
+
+        public void setMaxSpeed(int speed)
+        {
+            maxSpeed = speed;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace MouseTracker
         private static double minScale = 0.5;
 
         // choose whether the camera follows the "center of mass" of the line, or the cursor
-        private static bool cameraTargetsCursor = true;
+        private static CameraFollowType cameraFollowType = CameraFollowType.Cursor;
         // how quickly the camera follows the cursor (tension of rubber band)
         private static int cameraFollowSpeed = 30;
         // how quickly the camera zooms to fit stuff on screen
@@ -54,7 +54,13 @@ namespace MouseTracker
 
         private State currentState;
 
-        private enum State
+        public enum CameraFollowType
+        {
+            Cursor,
+            CenterOfMass,
+        }
+
+        public enum State
         {
             Reset,
             Moving,
@@ -259,7 +265,7 @@ namespace MouseTracker
         private double GetTargetScale()
         {
             double targetWidth;
-            if (!cameraTargetsCursor)
+            if (cameraFollowType == CameraFollowType.CenterOfMass)
             {
                 targetWidth = GetFurthestDistanceFromCamera();
             } else
@@ -273,7 +279,7 @@ namespace MouseTracker
 
         private Point GetTargetPos()
         {
-            if (!cameraTargetsCursor)
+            if (cameraFollowType == CameraFollowType.CenterOfMass)
             {
                 return GetCenterOfLine();
             }
@@ -336,6 +342,44 @@ namespace MouseTracker
             int dx = a.X - b.X;
             int dy = a.Y - b.Y;
             return Math.Sqrt(dx * dx + dy * dy);
+        }
+
+        // Setters for options
+        public Camera GetCamera()
+        {
+            return camera;
+        }
+
+        public void setRefreshRate(int hz)
+        {
+            refreshRate = hz;
+            refreshTimer.Dispose();
+            SetupRefreshTimer();
+        }
+
+        public void setMaxLineLength(int length)
+        {
+            maxLineLength = length;
+        }
+
+        public void setMinScale(double scale)
+        {
+            minScale = scale;
+        }
+
+        public void setCameraFollowType(CameraFollowType type)
+        {
+            cameraFollowType = type;
+        }
+
+        public void setCameraFollowSpeed(int speed)
+        {
+            cameraFollowSpeed = speed;
+        }
+
+        public void setCameraZoomSpeed(int speed)
+        {
+            cameraZoomSpeed = speed;
         }
     }
 }

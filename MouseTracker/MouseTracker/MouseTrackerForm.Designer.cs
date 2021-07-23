@@ -51,6 +51,7 @@ namespace MouseTracker
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 961);
             this.Controls.Add(this.graphicsPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MouseTrackerForm";
             this.Text = "Mouse Tracker";
             ((System.ComponentModel.ISupportInitialize)(this.graphicsPanel)).EndInit();

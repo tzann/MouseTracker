@@ -14,3 +14,4 @@ C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\Mo
 C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.pdb
 C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.MouseTrackerForm.resources
 C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.csproj.AssemblyReference.cache
+C:\Users\tynan\Documents\dev\MouseTracker\MouseTracker\MouseTracker\obj\Debug\MouseTracker.OptionForm.resources

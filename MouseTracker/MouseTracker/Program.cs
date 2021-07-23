@@ -16,7 +16,8 @@ namespace MouseTracker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MouseTrackerForm());
+
+            Application.Run(new OptionForm());
         }
     }
 }
